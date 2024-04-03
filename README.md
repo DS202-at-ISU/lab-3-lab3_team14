@@ -5,7 +5,7 @@
 library(dplyr)
 ```
 
-    ## Warning: package 'dplyr' was built under R version 4.2.3
+    ## Warning: package 'dplyr' was built under R version 4.3.3
 
     ## 
     ## Attaching package: 'dplyr'
@@ -22,20 +22,22 @@ library(dplyr)
 library(tidyverse)
 ```
 
-    ## Warning: package 'ggplot2' was built under R version 4.2.3
+    ## Warning: package 'tidyverse' was built under R version 4.3.3
 
-    ## Warning: package 'tibble' was built under R version 4.2.3
+    ## Warning: package 'ggplot2' was built under R version 4.3.3
+
+    ## Warning: package 'lubridate' was built under R version 4.3.3
 
     ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
     ## ✔ forcats   1.0.0     ✔ readr     2.1.4
-    ## ✔ ggplot2   3.4.4     ✔ stringr   1.5.0
-    ## ✔ lubridate 1.9.2     ✔ tibble    3.2.1
-    ## ✔ purrr     1.0.1     ✔ tidyr     1.3.0
+    ## ✔ ggplot2   3.5.0     ✔ stringr   1.5.0
+    ## ✔ lubridate 1.9.3     ✔ tibble    3.2.1
+    ## ✔ purrr     1.0.2     ✔ tidyr     1.3.0
 
     ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
-    ## ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors
+    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
 # Lab report \#3 - instructions
 
@@ -121,15 +123,17 @@ sum(deaths$Death == "YES")/length(unique(av$Name.Alias))
 Similarly, deal with the returns of characters.
 
 ``` r
-deaths <- deaths |>
+returns <- av |>
   pivot_longer(cols = starts_with("Return"),
-               names_to = "TimeReturn",
-               values_to = "DeathReturn") |>
-  mutate(TimeReturn = parse_number(str_remove(TimeReturn,"DeathReturn")))
+               names_to = "Time",
+               values_to = "Return") |>
+  mutate(TimeReturn = parse_number(str_remove(Time,"Return")))
 ```
 
 Based on these datasets calculate the average number of deaths an
 Avenger suffers.
+
+**An avenger suffers an average of 0.546 deaths**
 
 ## Individually
 
@@ -156,3 +160,22 @@ fact-checking endeavor.
 
 Upload your changes to the repository. Discuss and refine answers as a
 team.
+
+### Aidan Bobholz
+
+Statement: Out of 173 listed Avengers, my analysis found that 69 had
+died at least one time after they joined the team.
+
+``` r
+one_death <- av %>% 
+  count(av$Death1 == "YES")
+
+print(one_death)
+```
+
+    ##   av$Death1 == "YES"   n
+    ## 1              FALSE 104
+    ## 2               TRUE  69
+
+*Running this we can see that indeed 69 of the 173 Avengers had died
+atleast once proving the statement to be true.*
