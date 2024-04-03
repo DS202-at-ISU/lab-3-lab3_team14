@@ -1,6 +1,41 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/kHEW-1QV)
 
 <!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
+
+``` r
+library(dplyr)
+```
+
+    ## Warning: package 'dplyr' was built under R version 4.2.3
+
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
+library(tidyverse)
+```
+
+    ## Warning: package 'ggplot2' was built under R version 4.2.3
+
+    ## Warning: package 'tibble' was built under R version 4.2.3
+
+    ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+    ## ✔ forcats   1.0.0     ✔ readr     2.1.4
+    ## ✔ ggplot2   3.4.4     ✔ stringr   1.5.0
+    ## ✔ lubridate 1.9.2     ✔ tibble    3.2.1
+    ## ✔ purrr     1.0.1     ✔ tidyr     1.3.0
+
+    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
+    ## ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors
 
 # Lab report \#3 - instructions
 
@@ -71,6 +106,45 @@ replaced by two columns: Time, and Death. Time should be a number
 between 1 and 5 (look into the function `parse_number`); Death is a
 categorical variables with values “yes”, “no” and ““. Call the resulting
 data set `deaths`.
+
+``` r
+deaths <- av |>
+  pivot_longer(cols = starts_with("Death"),
+               names_to = "Time",
+               values_to = "Death") |>
+  mutate(Time = parse_number(str_remove(Time,"Death")))
+returns <- av |>
+  pivot_longer(cols = starts_with("Return"),
+               names_to = "Time",
+               values_to = "Returns") |>
+  mutate(Time = parse_number(str_remove(Time,"Death")))
+deaths
+```
+
+    ## # A tibble: 865 × 18
+    ##    URL                Name.Alias Appearances Current. Gender Probationary.Introl
+    ##    <chr>              <chr>            <int> <chr>    <chr>  <chr>              
+    ##  1 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  2 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  3 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  4 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  5 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
+    ##  6 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
+    ##  7 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
+    ##  8 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
+    ##  9 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
+    ## 10 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
+    ## # ℹ 855 more rows
+    ## # ℹ 12 more variables: Full.Reserve.Avengers.Intro <chr>, Year <int>,
+    ## #   Years.since.joining <int>, Honorary <chr>, Return1 <chr>, Return2 <chr>,
+    ## #   Return3 <chr>, Return4 <chr>, Return5 <chr>, Notes <chr>, Time <dbl>,
+    ## #   Death <chr>
+
+``` r
+sum(deaths$Death == "YES")/length(unique(av$Name.Alias))
+```
+
+    ## [1] 0.5460123
 
 Similarly, deal with the returns of characters.
 

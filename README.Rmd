@@ -3,10 +3,10 @@ output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
-
+```{r}
 library(dplyr)
 library(tidyverse)
-
+```
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -39,6 +39,13 @@ deaths <- av |>
                names_to = "Time",
                values_to = "Death") |>
   mutate(Time = parse_number(str_remove(Time,"Death")))
+returns <- av |>
+  pivot_longer(cols = starts_with("Return"),
+               names_to = "Time",
+               values_to = "Returns") |>
+  mutate(Time = parse_number(str_remove(Time,"Death")))
+deaths
+sum(deaths$Death == "YES")/length(unique(av$Name.Alias))
 ```
 
 
