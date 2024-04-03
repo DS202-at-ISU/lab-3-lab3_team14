@@ -46,11 +46,11 @@ sum(deaths$Death == "YES")/length(unique(av$Name.Alias))
 Similarly, deal with the returns of characters.
 
 ```{r}
-deaths <- deaths |>
+returns <- av |>
   pivot_longer(cols = starts_with("Return"),
-               names_to = "TimeReturn",
-               values_to = "DeathReturn") |>
-  mutate(TimeReturn = parse_number(str_remove(TimeReturn,"DeathReturn")))
+               names_to = "Time",
+               values_to = "Return") |>
+  mutate(TimeReturn = parse_number(str_remove(Time,"Return")))
 ```
 
 
