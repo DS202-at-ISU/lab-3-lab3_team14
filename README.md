@@ -113,40 +113,20 @@ deaths <- av |>
                names_to = "Time",
                values_to = "Death") |>
   mutate(Time = parse_number(str_remove(Time,"Death")))
-returns <- av |>
-  pivot_longer(cols = starts_with("Return"),
-               names_to = "Time",
-               values_to = "Returns") |>
-  mutate(Time = parse_number(str_remove(Time,"Death")))
-deaths
-```
-
-    ## # A tibble: 865 × 18
-    ##    URL                Name.Alias Appearances Current. Gender Probationary.Introl
-    ##    <chr>              <chr>            <int> <chr>    <chr>  <chr>              
-    ##  1 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ##  2 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ##  3 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ##  4 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ##  5 http://marvel.wik… "Henry Jo…        1269 YES      MALE   ""                 
-    ##  6 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
-    ##  7 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
-    ##  8 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
-    ##  9 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
-    ## 10 http://marvel.wik… "Janet va…        1165 YES      FEMALE ""                 
-    ## # ℹ 855 more rows
-    ## # ℹ 12 more variables: Full.Reserve.Avengers.Intro <chr>, Year <int>,
-    ## #   Years.since.joining <int>, Honorary <chr>, Return1 <chr>, Return2 <chr>,
-    ## #   Return3 <chr>, Return4 <chr>, Return5 <chr>, Notes <chr>, Time <dbl>,
-    ## #   Death <chr>
-
-``` r
 sum(deaths$Death == "YES")/length(unique(av$Name.Alias))
 ```
 
     ## [1] 0.5460123
 
 Similarly, deal with the returns of characters.
+
+``` r
+deaths <- deaths |>
+  pivot_longer(cols = starts_with("Return"),
+               names_to = "TimeReturn",
+               values_to = "DeathReturn") |>
+  mutate(TimeReturn = parse_number(str_remove(TimeReturn,"DeathReturn")))
+```
 
 Based on these datasets calculate the average number of deaths an
 Avenger suffers.

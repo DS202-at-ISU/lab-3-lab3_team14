@@ -39,12 +39,6 @@ deaths <- av |>
                names_to = "Time",
                values_to = "Death") |>
   mutate(Time = parse_number(str_remove(Time,"Death")))
-returns <- av |>
-  pivot_longer(cols = starts_with("Return"),
-               names_to = "Time",
-               values_to = "Returns") |>
-  mutate(Time = parse_number(str_remove(Time,"Death")))
-deaths
 sum(deaths$Death == "YES")/length(unique(av$Name.Alias))
 ```
 
@@ -57,7 +51,6 @@ deaths <- deaths |>
                names_to = "TimeReturn",
                values_to = "DeathReturn") |>
   mutate(TimeReturn = parse_number(str_remove(TimeReturn,"DeathReturn")))
-
 ```
 
 
