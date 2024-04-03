@@ -44,6 +44,7 @@ sum(deaths$Death == "YES")/length(unique(av$Name.Alias))
 ```
 
 ```{r}
+#Joshua Morningstar Individual Part
 #Out of 173 avengers, 69 died at least one time
 firstDeath <- filter(deaths, Time == 1)
 sum(firstDeath$Death == "YES")
