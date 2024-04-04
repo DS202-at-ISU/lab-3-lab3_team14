@@ -5,8 +5,6 @@
 library(dplyr)
 ```
 
-    ## Warning: package 'dplyr' was built under R version 4.3.3
-
     ## 
     ## Attaching package: 'dplyr'
 
@@ -22,15 +20,9 @@ library(dplyr)
 library(tidyverse)
 ```
 
-    ## Warning: package 'tidyverse' was built under R version 4.3.3
-
-    ## Warning: package 'ggplot2' was built under R version 4.3.3
-
-    ## Warning: package 'lubridate' was built under R version 4.3.3
-
     ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
     ## ✔ forcats   1.0.0     ✔ readr     2.1.4
-    ## ✔ ggplot2   3.5.0     ✔ stringr   1.5.0
+    ## ✔ ggplot2   3.4.4     ✔ stringr   1.5.1
     ## ✔ lubridate 1.9.3     ✔ tibble    3.2.1
     ## ✔ purrr     1.0.2     ✔ tidyr     1.3.0
 
@@ -115,10 +107,24 @@ deaths <- av |>
                names_to = "Time",
                values_to = "Death") |>
   mutate(Time = parse_number(str_remove(Time,"Death")))
+#Average number of deaths
 sum(deaths$Death == "YES")/length(unique(av$Name.Alias))
 ```
 
     ## [1] 0.5460123
+
+``` r
+#Joshua Morningstar Individual Part
+#Out of 173 avengers, 69 died at least one time
+firstDeath <- filter(deaths, Time == 1)
+sum(firstDeath$Death == "YES")
+```
+
+    ## [1] 69
+
+``` r
+#This is proven true, it gives 69
+```
 
 Similarly, deal with the returns of characters.
 
@@ -179,3 +185,32 @@ print(one_death)
 
 *Running this we can see that indeed 69 of the 173 Avengers had died
 atleast once proving the statement to be true.*
+
+Vanessa:
+
+“I counted 89 total deaths — some unlucky Avengers7 are basically Meat
+Loaf with an E-ZPass”
+
+``` r
+totalDeaths <- sum(
+  av |>
+    filter(Death1 == "YES") |>
+    nrow(),
+  av |>
+    filter(Death2 == "YES") |>
+    nrow(),
+  av |>
+    filter(Death3 == "YES") |>
+    nrow(),
+  av |>
+    filter(Death4 == "YES") |>
+    nrow(),
+  av |>
+    filter(Death5 == "YES") |>
+    nrow())
+totalDeaths
+```
+
+    ## [1] 89
+
+There are 89 total deaths, so the statement is true.
