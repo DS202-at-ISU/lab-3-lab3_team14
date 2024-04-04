@@ -100,3 +100,31 @@ print(one_death)
 ```
 
 *Running this we can see that indeed 69 of the 173 Avengers had died atleast once proving the statement to be true.*
+
+
+Vanessa: 
+
+"I counted 89 total deaths — some unlucky Avengers7 are basically Meat Loaf with an E-ZPass"
+
+```{r}
+totalDeaths <- sum(
+  av |>
+    filter(Death1 == "YES") |>
+    nrow(),
+  av |>
+    filter(Death2 == "YES") |>
+    nrow(),
+  av |>
+    filter(Death3 == "YES") |>
+    nrow(),
+  av |>
+    filter(Death4 == "YES") |>
+    nrow(),
+  av |>
+    filter(Death5 == "YES") |>
+    nrow())
+totalDeaths
+```
+There are 89 total deaths, so the statement is true. 
+
+
