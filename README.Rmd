@@ -129,4 +129,17 @@ totalDeaths
 ```
 There are 89 total deaths, so the statement is true. 
 
-
+### Luis Hinkhouse
+Statement: "In fact, Hawkeye died twice!"
+```{r}
+hawkeye_deaths1 <- av %>%
+  count(av$Name.Alias == 'Clinton Francis Barton' & av$Death1 == 'YES')
+print(hawkeye_deaths1)
+hawkeye_deaths2 <- av %>%
+  count(av$Name.Alias == 'Clinton Francis Barton' & av$Death2 == 'YES')
+print(hawkeye_deaths2)
+hawkeye_deaths3 <- av %>%
+  count(av$Name.Alias == 'Clinton Francis Barton' & av$Death3 == 'YES')
+print(hawkeye_deaths3)
+```
+As you can see the statement is True. We can see that there is a true for both hawkeye has died at least 1 time and 2 times, but not 3 times. 
