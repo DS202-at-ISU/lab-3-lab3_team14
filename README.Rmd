@@ -1,3 +1,12 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 # Lab report #3 - instructions
 
@@ -12,23 +21,11 @@ Submit a link to your repository on Canvas (only one submission per team) to sig
 
 ## As a team
 
----
-output: github_document
----
-
-<!-- README.md is generated from README.Rmd. Please edit the README.Rmd file -->
-```{r}
-library(dplyr)
-library(tidyverse)
-```
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-
 Extract from the data below two data sets in long form `deaths` and `returns`
 
 ```{r}
+library(dplyr)
+library(tidyverse)
 av <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/avengers/avengers.csv", stringsAsFactors = FALSE)
 head(av)
 ```
