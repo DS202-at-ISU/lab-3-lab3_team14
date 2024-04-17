@@ -12,10 +12,22 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(rvest)
+library(dplyr)
 url <- "https://www.baseball-reference.com/awards/hof_2023.shtml"
 html <- read_html(url)
 tables <- html %>% html_table(fill=TRUE)
-tables
-df <- tables[1]
+write.csv(tables[[1]], "temp.csv", row.names=FALSE)
+backin <- readr::read_csv("temp.csv", skip = 1, show_col_types =FALSE)
+head(backin, 3)
+df <- backin
+df$yearID = 2023
+df$votedBy = "BBWAA"
+df$category = NA
+df$needed_note = NA
 df
+```
+
+```{r}
+library(Lahman)
+head(HallOfFame, 50)
 ```
